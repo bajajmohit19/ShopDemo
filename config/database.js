@@ -1,2 +1,2 @@
-const url = 'mongodb://localhost/wasteofime';
+const url = 'mongodb://localhost/easynodeauthes6';
 export default { url };
