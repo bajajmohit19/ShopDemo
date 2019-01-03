@@ -1,14 +1,13 @@
 import mongoose, {Schema} from 'mongoose'
-import bcrypt  from 'bcrypt-nodejs';
+import bcrypt from 'bcrypt-nodejs';
 
 class UserSchema extends Schema {
-    constructor() {
+    constructor () {
 
         const user = super({
-            local: {
-                email: String,
-                password: String
-            }
+            email: {type: String, unique: true},
+            password: String,
+            userType: {type: String, default: 'user'}
         });
 
         user.methods.generateHash = this.generateHash;
@@ -19,8 +18,8 @@ class UserSchema extends Schema {
 
     generateHash = (password) => bcrypt.hashSync(password, bcrypt.genSaltSync(8), null)
 
-    validPassword(password) {
-        return bcrypt.compareSync(password, this.local.password)
+    validPassword (password) {
+        return bcrypt.compareSync(password, this.password)
     }
 
 }

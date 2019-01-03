@@ -12,7 +12,7 @@ import bodyParser from "body-parser";
 import session from "express-session";
 import compression from "compression";
 import path from "path";
-
+import cors from "cors";
 import configDB from "./config/database.js";
 import passportConfig from "./config/passport";
 
@@ -31,11 +31,12 @@ app.use(morgan(':method :url :status :res[content-length] - :response-time ms', 
     skip: req => rejectFolders.indexOf(req.url.split('/')[1]) !== -1
 }));
 
-app.use(compression({ threshold: 0 }));
+app.use(compression({threshold: 0}));
 app.use(cookieParser()); // read cookies (needed for auth)
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
+app.use(cors())
 
 app.set('view engine', 'ejs'); // set up ejs for templating
 app.use(express.static(path.join(__dirname, 'public')));
@@ -53,7 +54,10 @@ app.use(flash()); // use connect-flash for flash messages stored in session
 
 // routes ======================================================================
 import routes from "./app/routes";
+import authRoutes from "./app/authRoutes";
+
 routes(app, passport); // load our routes and pass in our app and fully configured passport
+authRoutes(app); // load our routes and pass in our app and fully configured passport
 
 
 app.use((req, res, next) => {
