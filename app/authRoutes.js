@@ -9,9 +9,8 @@ export default (app, passport) => {
         .post(async (req, res) => {
             let {body} = req;
             let data = await UserController.login(body);
-            console.log(data)
             res.json(data)
-        })
+        });
 
 
     app.route('/user')
