@@ -10,6 +10,7 @@ export default (app, passport) => {
             let {body} = req;
             let data = await UserController.login(body);
             res.json(data)
+
         });
 
 

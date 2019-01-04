@@ -12,6 +12,7 @@ import bodyParser from "body-parser";
 import session from "express-session";
 import compression from "compression";
 import path from "path";
+import expressLayouts from 'express-ejs-layouts';
 import cors from "cors";
 import configDB from "./config/database.js";
 import passportConfig from "./config/passport";
@@ -38,7 +39,12 @@ app.use(bodyParser.json());
 
 app.use(cors())
 
-app.set('view engine', 'ejs'); // set up ejs for templating
+app.set('view engine', 'ejs');
+app.use(expressLayouts);
+app.set('layout extractScripts', true);
+app.set('layout extractStyles', true);
+app.set('layout', 'layouts/main');
+
 app.use(express.static(path.join(__dirname, 'public')));
 
 // required for passport

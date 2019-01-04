@@ -1,6 +1,12 @@
 export default (app, passport) => {
 
-    app.get('/', (req, res) => res.render('index.ejs'));
+    app.get('/', (req, res) => {
+        res.locals = {
+            title: `Ayurveda`,
+            message: 'Account',
+        };
+        res.render('index.ejs')
+    });
 
     app.get('/profile', isLoggedIn, (req, res) => res.render('profile.ejs', {user: req.user}));
 

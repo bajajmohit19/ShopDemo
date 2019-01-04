@@ -57,7 +57,12 @@ const user = {
 
                 return resolve({
                     ...successObj,
-                    token: JWTToken
+                    token: JWTToken,
+                    user: {
+                        _id: user._id,
+                        email: user.email,
+                        userType: user.userType
+                    }
                 });
 
             })
