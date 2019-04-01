@@ -8,8 +8,8 @@ export default (app, passport) => {
         })
         .post(async (req, res) => {
             let {body} = req;
-            let data = await UserController.login(body);
-            res.json(data)
+            let response = await UserController.login(body);
+            res.json(response)
 
         });
 
@@ -20,9 +20,21 @@ export default (app, passport) => {
         })
         .post(async (req, res) => {
             let {body} = req;
-            let data = await UserController.add(body);
-            res.json(data)
+            let response = await UserController.add(body);
+            res.json(response)
 
+        })
+        .delete((req, res) => {
+
+
+        })
+
+
+    app.route('/user/:id')
+        .get(async (req, res) => {
+            let {params: {id}} = req;
+            let response = await UserController.profile(id);
+            res.json(response)
         })
         .delete((req, res) => {
 

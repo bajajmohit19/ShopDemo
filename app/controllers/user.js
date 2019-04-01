@@ -3,9 +3,6 @@ import jwt from 'jsonwebtoken';
 import User from '../models/user';
 import {secret} from '../../config/settings'
 
-const errorObj = {error: true, type: 'error'};
-const successObj = {error: false, type: 'success'};
-
 const user = {
     add: (data) => {
         return new Promise((resolve) => {
@@ -27,11 +24,27 @@ const user = {
             }
 
             user.save((err, doc) => {
-                if (err) console.log(err);
+                if (err) {
+                    console.log(err);
+                    return resolve({...errorObj, message: 'Error Saving User Details'})
+                }
                 resolve({...successObj, message: 'user added successfully'})
             })
 
 
+        })
+    },
+    profile: (_id) => {
+        return new Promise((resolve) => {
+            User.findOne({_id}).exec((err, data) => {
+
+                if (err) {
+                    console.log(err);
+                    return resolve({...errorObj, message: 'User not found'})
+                }
+
+                resolve({...successObj, data})
+            })
         })
     },
     login: (data) => (new Promise((resolve) => {

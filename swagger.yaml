@@ -1,4 +1,4 @@
-swagger: '2.0'
+swagger: "2.0"
 info:
   version: 1.0.0
   title: Easy Node Auth ES6
@@ -7,15 +7,15 @@ info:
     email: ishaan@wss.io
   license:
     name: Apache 2.0
-    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
 host: localhost:8083
 basePath: /
 schemes:
 #  - https
   - http
 tags:
-  - name: company
-    description: company add edit and delete
+  - name: auth
+    description: all functions related user accounts
 
 paths:
   /login:
@@ -36,13 +36,66 @@ paths:
           schema:
             type: object
             properties:
-              mobile:
+              email:
                 type : string
               password:
                 type: string
 
+      responses:
+        "200":
+          description: successful operation
+          schema:
+            $ref: "#/definitions/ApiResponse"
+  /user:
+    post:
+      tags:
+        - "auth"
+      summary: add new user
+      operationId: adduser
+      consumes:
+        - application/json
 
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          required: true
+          schema:
+            type: object
+            properties:
+              email:
+                type : string
+                required: true
+              password:
+                type: string
+                required: true
+              userType:
+                type: string
+                default : "user"
 
+      responses:
+        "200":
+          description: successful operation
+          schema:
+            $ref: "#/definitions/ApiResponse"
+  /user/{_id}:
+    get:
+      tags:
+        - "auth"
+      summary: Get user details
+      operationId: getUser
+      consumes:
+        - application/json
+
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: _id
+          description: _id  of the company
+          required: true
+          type: string
       responses:
         '200':
           description: successful operation

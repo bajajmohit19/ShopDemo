@@ -1,6 +1,11 @@
-export default {
-    db: '',
-    url: `http://anantfresh.com`
-};
+export const websiteUrl = "https://medmetrxmerlin-n.newparadigmbd.com"
+export const websiteTitle = "HTAMPS"
 
-export const secret = "asdfasdfasdf39284923984787as878234 asfjh asdfh"
+export const errorObj = {error: true, type: 'error', success: false};
+export const successObj = {error: false, type: 'success', success: true};
+
+export const secret = "asdfasdfasdf3928748932*&*^&^$%#$@$#@)IU^*&%&^%& asfjh asdfh"
+
+export default {
+    websiteUrl
+};
