@@ -2,6 +2,8 @@
 
 // set up ======================================================================
 // get all the tools we need
+require('dotenv').config()
+
 import express from "express";
 import mongoose from "mongoose";
 import passport from "passport";
@@ -14,11 +16,17 @@ import compression from "compression";
 import path from "path";
 import expressLayouts from 'express-ejs-layouts';
 import cors from "cors";
+import swaggerUi from "swagger-ui-express";
+import YAML from "yamljs";
+
 import configDB from "./config/database.js";
 import passportConfig from "./config/passport";
 
+const ENV = process.env
+
 const app = express();
-const port = process.env.PORT || 8083;
+const port = ENV.PORT || 8083;
+const swaggerDocument = YAML.load('./swagger.yaml');
 
 
 // configuration ===============================================================
@@ -58,6 +66,8 @@ app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 app.use(flash()); // use connect-flash for flash messages stored in session
 
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+
 // routes ======================================================================
 import routes from "./app/routes";
 import authRoutes from "./app/authRoutes";
@@ -72,6 +82,6 @@ app.use((req, res, next) => {
     next(err);
 });
 
-
+mongoose.set('debug', true)
 // launch ======================================================================
 app.listen(port, () => console.log(`App listening on port ${port}`));
