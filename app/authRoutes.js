@@ -1,4 +1,6 @@
 import UserController from './controllers/user'
+import JWT from "express-jwt";
+import {secret} from '../config/settings'
 
 export default (app, passport) => {
 
@@ -15,7 +17,11 @@ export default (app, passport) => {
 
 
     app.route('/user')
-        .get((req, res) => {
+        .get(JWT({secret}), async (req, res) => {
+
+            let {user: {_id}} = req;
+            let response = await UserController.profile(_id);
+            res.json(response)
 
         })
         .post(async (req, res) => {
@@ -40,6 +46,9 @@ export default (app, passport) => {
 
 
         })
+
+    // app.use('/secure', JWT({secret}));
+
 
 };
 

@@ -1,7 +1,7 @@
 import validator from "email-validator";
 import jwt from 'jsonwebtoken';
 import User from '../models/user';
-import {secret} from '../../config/settings'
+import {secret, errorObj, successObj} from '../../config/settings'
 
 const user = {
     add: (data) => {
