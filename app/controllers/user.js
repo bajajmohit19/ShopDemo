@@ -1,9 +1,9 @@
-import validator from "email-validator";
+import validator from 'email-validator';
 import jwt from 'jsonwebtoken';
 import User from '../models/user';
 import {secret, errorObj, successObj} from '../../config/settings'
 
-const user = {
+const exp = {
     add: (data) => {
         return new Promise((resolve) => {
 
@@ -22,13 +22,12 @@ const user = {
             if (userType) {
                 user.userType = userType;
             }
-
             user.save((err, doc) => {
                 if (err) {
-                    console.log(err);
+                    console.error(err);
                     return resolve({...errorObj, message: 'Error Saving User Details'})
                 }
-                resolve({...successObj, message: 'user added successfully'})
+                resolve({...successObj, message: 'user added successfully', data: doc})
             })
 
 
@@ -39,7 +38,7 @@ const user = {
             User.findOne({_id}).exec((err, data) => {
 
                 if (err) {
-                    console.log(err);
+                    console.error(err);
                     return resolve({...errorObj, message: 'User not found'})
                 }
 
@@ -47,12 +46,11 @@ const user = {
             })
         })
     },
-    login: (data) => (new Promise((resolve) => {
-        let {email, password} = data;
+    login: data => (new Promise((resolve) => {
+        const {email, password} = data;
+        const error = 'wrong email or password'
 
-        let error = 'wrong email or password'
-
-        User.findOne({'email': email})
+        User.findOne({email})
             .exec(function (err, user) {
 
                 if (!user) return resolve({...errorObj, message: error});
@@ -84,4 +82,4 @@ const user = {
 }
 
 
-export default user;
+export default exp;

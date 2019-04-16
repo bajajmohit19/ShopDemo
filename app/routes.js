@@ -1,8 +1,10 @@
+import {isLoggedIn} from './controllers/_utils'
+
 export default (app, passport) => {
 
     app.get('/', (req, res) => {
         res.locals = {
-            title: `Ayurveda`,
+            title: 'Ayurveda',
             message: 'Account',
         };
         res.render('index.ejs')
@@ -33,10 +35,3 @@ export default (app, passport) => {
 
 };
 
-// route middleware to ensure user is logged in
-function isLoggedIn(req, res, next) {
-    if (req.isAuthenticated())
-        return next();
-
-    res.redirect('/');
-}

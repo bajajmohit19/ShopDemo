@@ -1,16 +1,17 @@
+import JWT from 'express-jwt';
+
 import UserController from './controllers/user'
-import JWT from "express-jwt";
 import {secret} from '../config/settings'
 
-export default (app, passport) => {
+export default (app) => {
 
     app.route('/login')
         .get((req, res) => {
 
         })
         .post(async (req, res) => {
-            let {body} = req;
-            let response = await UserController.login(body);
+            const {body} = req;
+            const response = await UserController.login(body);
             res.json(response)
 
         });
@@ -19,14 +20,14 @@ export default (app, passport) => {
     app.route('/user')
         .get(JWT({secret}), async (req, res) => {
 
-            let {user: {_id}} = req;
-            let response = await UserController.profile(_id);
+            const {user: {_id}} = req;
+            const response = await UserController.profile(_id);
             res.json(response)
 
         })
         .post(async (req, res) => {
-            let {body} = req;
-            let response = await UserController.add(body);
+            const {body} = req;
+            const response = await UserController.add(body);
             res.json(response)
 
         })
@@ -38,8 +39,8 @@ export default (app, passport) => {
 
     app.route('/user/:id')
         .get(async (req, res) => {
-            let {params: {id}} = req;
-            let response = await UserController.profile(id);
+            const {params: {id}} = req;
+            const response = await UserController.profile(id);
             res.json(response)
         })
         .delete((req, res) => {

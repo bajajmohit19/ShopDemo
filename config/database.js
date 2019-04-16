@@ -1,3 +1,2 @@
-const url = 'mongodb://63.142.250.23/react-admin-backend-api-test';
-// const url = 'mongodb://localhost/easynodeauthes6';
+const url = process.env.DATABASE_URL;
 export default {url};

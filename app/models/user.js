@@ -5,7 +5,7 @@ class UserSchema extends Schema {
     constructor () {
 
         const user = super({
-            email: {type: String, unique: true},
+            email: {type: String, unique: true, lowercase: true, trim: true},
             password: String,
             userType: {type: String, default: 'user'}
         });
@@ -16,7 +16,7 @@ class UserSchema extends Schema {
         return user
     }
 
-    generateHash = (password) => bcrypt.hashSync(password, bcrypt.genSaltSync(8), null)
+    generateHash = password => bcrypt.hashSync(password, bcrypt.genSaltSync(8), null)
 
     validPassword (password) {
         return bcrypt.compareSync(password, this.password)
@@ -24,4 +24,4 @@ class UserSchema extends Schema {
 
 }
 
-export default mongoose.model('User', new UserSchema)
+export default mongoose.model('User', new UserSchema) // eslint-disable-line

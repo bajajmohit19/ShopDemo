@@ -1,31 +1,29 @@
 // server.js
 
 // set up ======================================================================
-// get all the tools we need
-require('dotenv').config()
-
-import express from "express";
-import mongoose from "mongoose";
-import passport from "passport";
-import flash from "connect-flash";
-import morgan from "morgan";
-import cookieParser from "cookie-parser";
-import bodyParser from "body-parser";
-import session from "express-session";
-import compression from "compression";
-import path from "path";
+import express from 'express';
+import mongoose from 'mongoose';
+import passport from 'passport';
+import flash from 'connect-flash';
+import morgan from 'morgan';
+import cookieParser from 'cookie-parser';
+import bodyParser from 'body-parser';
+import session from 'express-session';
+import compression from 'compression';
+import path from 'path';
 import expressLayouts from 'express-ejs-layouts';
-import cors from "cors";
-import swaggerUi from "swagger-ui-express";
-import YAML from "yamljs";
+import cors from 'cors';
+import swaggerUi from 'swagger-ui-express';
+import YAML from 'yamljs';
 
-import configDB from "./config/database.js";
-import passportConfig from "./config/passport";
+import configDB from './config/database';
+import passportConfig from './config/passport';
 
-const ENV = process.env
+// routes ======================================================================
+import routes from './app/routes';
+import authRoutes from './app/authRoutes';
 
 const app = express();
-const port = ENV.PORT || 8083;
 const swaggerDocument = YAML.load('./swagger.yaml');
 
 
@@ -57,7 +55,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // required for passport
 app.use(session({
-    secret: 'ilovees6andsotch', // session secret
+    secret: process.env.SECRET_KEY, // session secret
     resave: true,
     saveUninitialized: true
 }));
@@ -68,20 +66,17 @@ app.use(flash()); // use connect-flash for flash messages stored in session
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
-// routes ======================================================================
-import routes from "./app/routes";
-import authRoutes from "./app/authRoutes";
 
 routes(app, passport); // load our routes and pass in our app and fully configured passport
 authRoutes(app); // load our routes and pass in our app and fully configured passport
 
 
 app.use((req, res, next) => {
-    let err = new Error('Not Found');
+    const err = new Error('Not Found');
     err.status = 404;
     next(err);
 });
 
 mongoose.set('debug', true)
-// launch ======================================================================
-app.listen(port, () => console.log(`App listening on port ${port}`));
+
+module.exports = app;
