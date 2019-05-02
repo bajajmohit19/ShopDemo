@@ -7,7 +7,7 @@ const exp = {
     add: (data) => {
         return new Promise((resolve) => {
 
-            let {email, password, userType} = data;
+            const {email, password, userType} = data;
 
             if (!email || !password) {
                 return resolve({...errorObj, message: 'Please enter email and password'})
@@ -16,7 +16,7 @@ const exp = {
                 return resolve({...errorObj, message: 'Invalid Email Address'})
             }
 
-            let user = new User();
+            const user = new User();
             user.email = email;
             user.password = user.generateHash(password);
             if (userType) {

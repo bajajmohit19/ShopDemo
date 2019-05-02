@@ -19,10 +19,8 @@ export default (app) => {
 
     app.route('/user')
         .get(JWT({secret}), async (req, res) => {
-
-            const {user: {_id}} = req;
-            const response = await UserController.profile(_id);
-            res.json(response)
+            console.log('helell') // eslint-disable-line
+            res.json({data: []})
 
         })
         .post(async (req, res) => {

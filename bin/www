@@ -1,6 +1,14 @@
 #!/usr/bin/env node
 
-require('dotenv').config()
+const dotenv = require('dotenv')
+
+
+const envFromRealEnvironment = process.env.NODE_ENV || 'development'
+const path = `.env.${envFromRealEnvironment}`
+
+// console.log(path, envFromRealEnvironment)
+
+dotenv.config({path, silent: envFromRealEnvironment === 'production'})
 
 function normalizePort (val) {
     const prt = parseInt(val, 10);
