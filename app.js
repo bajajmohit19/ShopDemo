@@ -35,7 +35,7 @@ const rejectFolders = ['css', 'bower_components', 'js', 'img', 'fonts', 'images'
 
 // removing static resources from the logger
 app.use(morgan(':method :url :status :res[content-length] - :response-time ms', {
-    skip: req => rejectFolders.indexOf(req.url.split('/')[1]) !== -1
+  skip: req => rejectFolders.indexOf(req.url.split('/')[1]) !== -1
 }));
 
 app.use(compression({threshold: 0}));
@@ -55,9 +55,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // required for passport
 app.use(session({
-    secret: process.env.SECRET_KEY, // session secret
-    resave: true,
-    saveUninitialized: true
+  secret: process.env.SECRET_KEY || 'asdfsadfkjhsadfkjhasdkjfhasdjkfh k', // session secret
+  resave: true,
+  saveUninitialized: true
 }));
 
 app.use(passport.initialize());
@@ -72,9 +72,9 @@ authRoutes(app); // load our routes and pass in our app and fully configured pas
 
 
 app.use((req, res, next) => {
-    const err = new Error('Not Found');
-    err.status = 404;
-    next(err);
+  const err = new Error('Not Found');
+  err.status = 404;
+  next(err);
 });
 
 mongoose.set('debug', true)

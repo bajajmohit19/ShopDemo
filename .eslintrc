@@ -32,7 +32,7 @@
     "prefer-template": 1,
     "no-underscore-dangle": 0,
     "no-eval": "error",
-    "indent": ["warn", 4],
+    "indent": ["warn", 2],
     "quotes": ["warn", "single"],
     "no-console": ["error", { "allow": ["warn", "info" , "error"] }],
     "space-before-function-paren": ["error", "always"],

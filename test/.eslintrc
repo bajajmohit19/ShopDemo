@@ -31,7 +31,7 @@
     "no-eval": "error",
     "indent": [
       "warn",
-      4
+      2
     ],
     "quotes": [
       "warn",
