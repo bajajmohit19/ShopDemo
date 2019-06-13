@@ -1,6 +1,9 @@
 import validator from 'email-validator';
+import _ from 'lodash'
 import jwt from 'jsonwebtoken';
+import {TableFilterQuery} from 'sz-node-utils'
 import User from '../models/user';
+
 import {secret, errorObj, successObj} from '../../config/settings'
 
 const exp = {
@@ -79,6 +82,37 @@ const exp = {
       })
 
   })),
+  usersList: (data) => {
+    return new Promise(async (resolve) => {
+      const x = await TableFilterQuery(User, {...data})
+      resolve(x)
+    })
+  },
+  update: (data) => {
+    return new Promise((resolve) => {
+      User.findOne({_id: data._id}).exec((error, result) => {
+        if (error || !result) return resolve({...errorObj, error})
+        result.email = data.email
+        result.password = result.generateHash(data.password);
+
+
+        result.save((err, doc) => {
+          if (err) return resolve({...errorObj, err})
+          resolve({data: doc, ...successObj, message: 'User updated successfully'})
+        })
+      })
+
+    })
+  },
+  delete: (_id) => {
+    return new Promise((resolve) => {
+      User.remove({_id})
+        .exec((err, doc) => {
+          if (err || !doc) return resolve({...errorObj, err})
+          resolve({...successObj, message: 'User deleted successfully'})
+        })
+    })
+  },
   removeAll: () => {
     return new Promise((resolve) => {
       User.remove({}).then((err) => {
@@ -93,6 +127,7 @@ const exp = {
 
     })
   },
+
 }
 
 

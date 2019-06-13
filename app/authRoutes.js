@@ -1,7 +1,6 @@
 import JWT from 'express-jwt';
-
 import UserController from './controllers/user'
-import {secret} from '../config/settings'
+import {secret, errorObj, successObj} from '../config/settings'
 
 export default (app) => {
 
@@ -24,8 +23,10 @@ export default (app) => {
 
 
   app.route('/user')
-    .get(JWT({secret}), async (req, res) => {
-      res.json({data: [], user: req.user})
+    .get( async (req, res) => {
+      let response = await UserController.usersList()
+      res.json(response)
+
     })
     .post(async (req, res) => {
       const {body} = req;
@@ -33,20 +34,30 @@ export default (app) => {
       res.json(response)
 
     })
-    .delete((req, res) => {
 
-
-    })
-
-
-  app.route('/user/:id')
+  app.route('/user/:_id')
     .get(async (req, res) => {
-      const {params: {id}} = req;
-      const response = await UserController.profile(id);
-      res.json(response)
+      const {params: {_id}} = req;
+      const response = await UserController.profile(_id);
+      return res.json({...response})
     })
-    .delete((req, res) => {
+    .put(JWT({secret}), async (req, res) => {
+      const {params: {_id}, body, user} = req
+      if (user) {
+        body._id = _id
+        const response = await UserController.update(body);
+        return res.json({...response})
+      }
+      res.json({...errorObj, message: 'Invalid token'})
+    })
+    .delete(JWT({secret}), async (req, res) => {
+      let {params: {_id}, user} = req
 
+      if (user) {
+        let data = await UserController.delete(_id)
+        return res.json({...data})
+      }
+      res.json({...errorObj, message: 'Invalid token'})
 
     })
 
