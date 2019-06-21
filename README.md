@@ -9,10 +9,8 @@ We will be using Passport to authenticate users locally only
 
 If you would like to download the code and try it for yourself:
 
-1. Clone the repo: `git clone git@github.com:scotch-io/easy-node-authentication`
+1. Clone the repo: `git clone https://github.com/scizers/easy-node-authentication-es6.git`
 2. Install packages: `npm install`
-3. Change out the database configuration in config/database.js
-4. Change out auth keys in config/auth.js
-5. Launch: `node server.js`
-6. Visit in your browser at: `http://localhost:8083`
+3. Change out the database configuration in .env.development
+4. Launch: `npm start`
 
