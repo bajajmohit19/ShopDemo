@@ -46,7 +46,7 @@ app.use(
 
 app.use(compression({threshold: 0}))
 app.use(cookieParser()) // read cookies (needed for auth)
-app.use(bodyParser.urlencoded({extended: true}))
+app.use(bodyParser.urlencoded({extended: true , limit : '50mb'}))
 app.use(bodyParser.json())
 
 app.use(cors())
