@@ -17,6 +17,13 @@ app.route('/login')
      res.json(response)
 
    })
+app.route('/loginadmin')
+   .post(async (req, res) => {
+     const {body} = req
+     const response = await UserController.login(body)
+     res.json(response)
+
+   })
 
 app.route('/user')
    .get(async (req, res) => {

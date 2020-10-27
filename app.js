@@ -76,7 +76,6 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
 routes(app, passport) // load our routes and pass in our app and fully configured passport
 
 countryRoutes(app, passport);
-
 app.use('/', authRoutes)
 
 app.use((req, res, next) => {
