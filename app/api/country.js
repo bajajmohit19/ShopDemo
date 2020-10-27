@@ -3,8 +3,7 @@ import express from 'express'
 import CountryController from '../controllers/country'
 import { secret } from '../../config/settings'
 
-const app = express.Router()
-
+export default (app, passport) => {
 app.route('/country')
   .post(async (req, res) => {
     const {body} = req
@@ -13,4 +12,6 @@ app.route('/country')
   })
 
 
-export default app
+}
+
+
