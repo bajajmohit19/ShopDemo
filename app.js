@@ -22,6 +22,7 @@ import passportConfig from './config/passport'
 // routes ======================================================================
 import routes from './app/routes'
 import authRoutes from './app/authRoutes'
+import countryRoutes from './app/api/country';
 
 const app = express()
 const swaggerDocument = YAML.load('./swagger.yaml')
@@ -73,6 +74,8 @@ app.use(flash()) // use connect-flash for flash messages stored in session
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
 
 routes(app, passport) // load our routes and pass in our app and fully configured passport
+
+countryRoutes(app, passport);
 app.use('/', authRoutes)
 
 app.use((req, res, next) => {
