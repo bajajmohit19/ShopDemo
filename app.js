@@ -23,6 +23,9 @@ import passportConfig from './config/passport'
 import routes from './app/routes'
 import authRoutes from './app/authRoutes'
 import countryRoutes from './app/api/country';
+import stateRoutes from './app/api/state';
+import cityRoutes from './app/api/city';
+import universityRoutes from './app/api/university';
 
 const app = express()
 const swaggerDocument = YAML.load('./swagger.yaml')
@@ -76,6 +79,10 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
 routes(app, passport) // load our routes and pass in our app and fully configured passport
 
 countryRoutes(app, passport);
+stateRoutes(app, passport);
+cityRoutes(app, passport);
+universityRoutes(app, passport);
+
 app.use('/', authRoutes)
 
 app.use((req, res, next) => {
