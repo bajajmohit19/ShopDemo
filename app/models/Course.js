@@ -1,8 +1,11 @@
 import mongoose, { Schema } from 'mongoose'
 
+
+
 class CourseSchema extends Schema {
     constructor() {
-        const EnglishRequirments = super({
+
+        const EnglishRequirments = new Schema({
             examType: String,
             overall: { type: Number, default: 0 },
             listening: { type: Number, default: 0 },
@@ -10,7 +13,7 @@ class CourseSchema extends Schema {
             writing: { type: Number, default: 0 },
             speaking: { type: Number, default: 0 }
         })
-        const Qualification = super({
+        const Qualification = new Schema({
             qualification: String,
             passingYear: { type: Number, default: 0 },
             percentage: { type: Number, default: 0 },
@@ -26,8 +29,8 @@ class CourseSchema extends Schema {
             courseName: String,
             courseDuration: String,
             courseLevel: String,
-            englishRequirments: { EnglishRequirments },
-            qualification: { Qualification },
+            englishRequirments: [EnglishRequirments],
+            qualification: [Qualification],
             tuitionFee: Number,
             payable: String,
             additionalRequirments: String,
