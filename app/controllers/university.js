@@ -39,7 +39,8 @@ const exp = {
     },
     update: async (data) => {
         try {
-            let university = await University.findByIdAndUpdate(data._id, data)
+            let university = await University.findByIdAndUpdate(data._id, data);
+            if(!university) return { ...errorObj, message: 'University not found' }
             return { ...successObj, message: 'University updated successfully', data: university }
         } catch (err) {
             return { ...errorObj, message: 'Error Updating University' }

@@ -40,6 +40,7 @@ const exp = {
     update: async (data) => {
         try {
             let city = await City.findByIdAndUpdate(data._id, data)
+            if(!city) return { ...errorObj, message: 'City not found' }
             return { ...successObj, message: 'City updated successfully', data: city }
         } catch (err) {
             return { ...errorObj, message: 'Error Updating City' }

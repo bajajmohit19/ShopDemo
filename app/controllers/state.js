@@ -41,7 +41,8 @@ const exp = {
     },
     update: async (data) => {
         try {
-            let stateObj = await State.findByIdAndUpdate(data._id, data)
+            let stateObj = await State.findByIdAndUpdate(data._id, data);
+            if(!stateObj) return { ...errorObj, message: 'State not found' }
             return { ...successObj, message: 'State updated successfully', data: stateObj }
         } catch (err) {
             return { ...errorObj, message: 'Error Updating State' }

@@ -35,7 +35,8 @@ const exp = {
     },
     update: async (data) => {
         try {
-            let countryObj = await Country.findByIdAndUpdate(data._id, data)
+            let countryObj = await Country.findByIdAndUpdate(data._id, data);
+            if(!countryObj) return { ...errorObj, message: 'Country not found' }
             return { ...successObj, message: 'Country updated successfully', data: countryObj }
         } catch (err) {
             return { ...errorObj, message: 'Error Updating Country' }
