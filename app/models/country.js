@@ -14,7 +14,7 @@ class CountrySchema extends Schema {
             interview: { type: String, enum: ['Yes', 'No', 'Maybe'] },
             visaFillingBy: String,
             tutionFee: {type: Number},
-            sigleOHSC: String,
+            singleOHSC: String,
             dualOHSC: String,
             visaFeeMainApplicant: {type: Number},
             visaFeeSpouse: {type: Number},
