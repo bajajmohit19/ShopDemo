@@ -47,20 +47,34 @@ const branchCtrl = {
             })
         })
     },
+    getById: (_id) => {
+        return new Promise((resolve) => {
+            Branch.findOne({ _id })
+                .populate('branchCountry branchCity branchState')
+                .exec((err, data) => {
+
+                    if (!data) {
+                        return resolve({ ...errorObj, message: 'Branch not found', err })
+                    }
+                    return resolve({ ...successObj, message: 'Branch Found',data })
+
+                })
+        })
+    },
     all: (data) => {
         return new Promise((resolve) => {
-            const branch = Branch.find({ ...data })
-                .populate('branchCountry')
-                .populate('branchState')
-                .populate('branchCity')
+            let populateArr = [
+                { path: 'country', select: 'countryName' },
+                { path: 'state', select: 'stateName' },
+                { path: 'city', select: 'cityName' }
+            ]
+            let branches = await TableFilterQuery(Branch, { ...data, populateArr })
 
-            branch.exec((err, data) => {
-                if (err || !data) {
-                    return resolve({ ...errorObj, message: "error listing", err });
-                }
-                return resolve({ ...successObj, message: "branches listed", data });
 
-            });
+            if (!branches) {
+                return resolve({ ...errorObj, message: "error listing", err });
+            }
+            return resolve({ ...successObj, message: "branches listed", branches });
         });
     },
     delete: (_id) => {

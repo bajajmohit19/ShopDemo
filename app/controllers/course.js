@@ -11,7 +11,7 @@ const courseCtrl = {
 
             const newCourse = new Course()
             _.each(data, (val, key) => {
-                newBranch[key] = val
+                newCourse[key] = val
             })
             console.log(newCourse)
             newCourse.save((err, doc) => {
@@ -47,18 +47,31 @@ const courseCtrl = {
             })
         })
     },
-    all: (data) => {
+    getById: (_id) => {
         return new Promise((resolve) => {
-            const course = Course.find({ ...data })
-                .populate('courseUniversity')
+            Course.findOne({ _id })
+                .populate('campusUniversity')
+                .exec((err, data) => {
 
-            course.exec((err, data) => {
-                if (err || !data) {
-                    return resolve({ ...errorObj, message: "error listing", err });
-                }
-                return resolve({ ...successObj, message: "courses listed", data });
+                    if (!data) {
+                        return resolve({ ...errorObj, message: 'Course not found', err })
+                    }
+                    return resolve({ ...successObj, message: 'Course Found',data })
 
-            });
+                })
+        })
+    },
+    all: (data) => {
+        return new Promise(async (resolve) => {
+            let populateArr = [{ path: 'unviversity', select: 'universityName' }]
+            let courses = await TableFilterQuery(Course, { ...data, populateArr })
+
+
+            if (!courses) {
+                return resolve({ ...errorObj, message: "error listing", err });
+            }
+            return resolve({ ...successObj, message: "courses listed", courses });
+
         });
     },
     delete: (_id) => {
@@ -75,4 +88,4 @@ const courseCtrl = {
 
 }
 
-export default branchCtrl
+export default courseCtrl

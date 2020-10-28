@@ -2,30 +2,32 @@ import mongoose, { Schema } from 'mongoose'
 
 class CourseSchema extends Schema {
     constructor() {
+        const EnglishRequirments = super({
+            examType: String,
+            overall: { type: Number, default: 0 },
+            listening: { type: Number, default: 0 },
+            reading: { type: Number, default: 0 },
+            writing: { type: Number, default: 0 },
+            speaking: { type: Number, default: 0 }
+        })
+        const Qualification = super({
+            qualification: String,
+            passingYear: { type: Number, default: 0 },
+            percentage: { type: Number, default: 0 },
+            maths: { type: Number, default: 0 },
+            english: { type: Number, default: 0 },
+            stream: { type: Array },
+            major: { type: Array },
+            backlogs: { type: Number, default: 0 },
+            degreeType: { type: String, default: 0 }
+        })
         const course = super({
             courseUniversity: { type: Schema.Types.ObjectId, ref: 'University' },
             courseName: String,
             courseDuration: String,
             courseLevel: String,
-            englishRequirments: {
-                "ExamType": String,
-                "Overall": { type: Number, default: 0 },
-                "Listening": { type: Number, default: 0 },
-                "Reading": { type: Number, default: 0 },
-                "Writing": { type: Number, default: 0 },
-                "Speaking": { type: Number, default: 0 },
-            },
-            qualification: {
-                "Qualification": String,
-                "PassingYear": Number,
-                "Percentage": Number,
-                "Maths": Number,
-                "English": Number,
-                "Stream": Array,
-                "Major": Array,
-                "Backlogs": Number,
-                "DegreeType": String
-            },
+            englishRequirments: { EnglishRequirments },
+            qualification: { Qualification },
             tuitionFee: Number,
             payable: String,
             additionalRequirments: String,
