@@ -14,7 +14,7 @@ const exp = {
             let doc = await countryObj.save();
             return { ...successObj, message: 'Country added successfully', data: doc }
         } catch (err) {
-            return { err,...errorObj, message: 'Error Saving Country' }
+            return { err, ...errorObj, message: 'Error Saving Country' }
         }
     },
     getAll: async (filters) => {
@@ -41,12 +41,12 @@ const exp = {
             return { ...errorObj, message: 'Error Updating Country' }
         }
     },
-    delete: async (_id) =>{
-        try{
-        let country =  await Country.remove({_id: _id});
-        return {...successObj, message:'Deleted successfully'}
-        }catch (err){
-          return {...errorObj, message: 'Error in deleting'}
+    delete: async (_id) => {
+        try {
+            let country = await Country.remove({ _id: _id });
+            return { ...successObj, message: 'Deleted successfully' }
+        } catch (err) {
+            return { ...errorObj, message: 'Error in deleting' }
         }
     }
 

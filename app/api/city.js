@@ -1,36 +1,36 @@
 import JWT from 'express-jwt'
 import express from 'express'
-import CountryController from '../controllers/country'
+import CityController from '../controllers/city'
 import { secret } from '../../config/settings'
 
 export default (app, passport) => {
-    app.route('/country')
+    app.route('/city')
         .post(JWT({ secret }), async (req, res) => {
             const { body } = req
-            let response = await CountryController.add(body)
+            let response = await CityController.add(body)
             res.json({ ...response })
         })
         .get(JWT({ secret }), async (req, res) => {
-            let response = await CountryController.getAll(req.query)
+            let response = await CityController.getAll(req.query)
             res.json({ ...response })
         })
         
 
-    app.route('/country/:_id')
+    app.route('/city/:_id')
         .get(JWT({ secret }), async (req, res) => {
             const { params: { _id } } = req
-            let response = await CountryController.getCountryById(_id)
+            let response = await CityController.getCityById(_id)
             res.json({ ...response })
         })
         .put(JWT({ secret }), async (req, res) => {
             const { params: { _id }, body } = req
             body._id = _id
-            let response = await CountryController.update(body)
+            let response = await CityController.update(body)
             res.json({ ...response })
         })
         .delete(JWT({ secret }), async (req, res) => {
             const { params: { _id } } = req
-            let response = await CountryController.delete(_id)
+            let response = await CityController.delete(_id)
             res.json({ ...response })
         })
 

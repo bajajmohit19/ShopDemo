@@ -13,15 +13,15 @@ class CountrySchema extends Schema {
             visaCategory: String,
             interview: { type: String, enum: ['Yes', 'No', 'Maybe'] },
             visaFillingBy: String,
-            tutionFee: String,
+            tutionFee: {type: Number},
             sigleOHSC: String,
             dualOHSC: String,
-            visaFeeMainApplicant: String,
-            visaFeeSpouse: String,
-            visaFeeChild1: String,
+            visaFeeMainApplicant: {type: Number},
+            visaFeeSpouse: {type: Number},
+            visaFeeChild: {type: Number},
             livingCostMainApplicant: String,
             livingCostSpouse: String,
-        })
+        },{ timestamps: {} })
 
         return country
     }
