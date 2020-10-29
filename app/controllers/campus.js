@@ -2,6 +2,7 @@ import validator from 'email-validator'
 import jwt from 'jsonwebtoken'
 import { TableFilterQuery } from 'sz-node-utils'
 import Campus from '../models/Campus'
+import _ from 'lodash'
 
 import { secret, errorObj, successObj } from '../../config/settings'
 
@@ -62,7 +63,7 @@ const campusCtrl = {
         })
     },
     all: (data) => {
-        return new Promise((resolve) => {
+        return new Promise(async (resolve) => {
             let populateArr = [
                 { path: 'country', select: 'countryName' },
                 { path: 'state', select: 'stateName' },

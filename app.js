@@ -26,6 +26,12 @@ import countryRoutes from './app/api/country';
 import stateRoutes from './app/api/state';
 import cityRoutes from './app/api/city';
 import universityRoutes from './app/api/university';
+import courseRoutes from './app/api/course';
+import branchRoutes from './app/api/branch';
+import campusRoutes from './app/api/campus';
+
+
+
 
 const app = express()
 const swaggerDocument = YAML.load('./swagger.yaml')
@@ -82,6 +88,10 @@ countryRoutes(app, passport);
 stateRoutes(app, passport);
 cityRoutes(app, passport);
 universityRoutes(app, passport);
+courseRoutes(app, passport);
+branchRoutes(app, passport);
+campusRoutes(app, passport);
+
 
 app.use('/', authRoutes)
 
