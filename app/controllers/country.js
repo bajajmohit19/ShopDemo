@@ -14,6 +14,9 @@ const exp = {
             let doc = await countryObj.save();
             return { ...successObj, message: 'Country added successfully', data: doc }
         } catch (err) {
+            if (err.code == 11000) {
+                return { ...errorObj, message: 'Country name already exists' }
+            }
             return { err, ...errorObj, message: 'Error Saving Country' }
         }
     },
@@ -36,9 +39,12 @@ const exp = {
     update: async (data) => {
         try {
             let countryObj = await Country.findByIdAndUpdate(data._id, data);
-            if(!countryObj) return { ...errorObj, message: 'Country not found' }
+            if (!countryObj) return { ...errorObj, message: 'Country not found' }
             return { ...successObj, message: 'Country updated successfully', data: countryObj }
         } catch (err) {
+            if (err.code == 11000) {
+                return { ...errorObj, message: 'Country name already exists' }
+            }
             return { ...errorObj, message: 'Error Updating Country' }
         }
     },
