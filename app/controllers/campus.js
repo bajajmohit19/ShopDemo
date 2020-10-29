@@ -35,6 +35,7 @@ const campusCtrl = {
                     if (!doc) {
                         return resolve({ ...errorObj, message: 'campus not found' })
                     }
+                    console.log("data isssss", data)
                     _.each(data, (val, key) => {
                         doc[key] = val
                     })
@@ -50,14 +51,14 @@ const campusCtrl = {
     },
     getById: (_id) => {
         return new Promise((resolve) => {
-            EmpSchema.findOne({ _id })
-                .populate('branchCountry branchCity branchState campusUniversity')
+            Campus.findOne({ _id })
+                .populate('campusCountry campusCity campusState campusUniversity')
                 .exec((err, data) => {
 
                     if (!data) {
-                        return resolve({ ...errorObj, message: 'Branch not found', err })
+                        return resolve({ ...errorObj, message: 'Campus not found', err })
                     }
-                    return resolve({ ...successObj, message: 'Branch Found',data })
+                    return resolve({ ...successObj, message: 'Campus Found',data })
 
                 })
         })
@@ -65,19 +66,19 @@ const campusCtrl = {
     all: (data) => {
         return new Promise(async (resolve) => {
             let populateArr = [
-                { path: 'country', select: 'countryName' },
-                { path: 'state', select: 'stateName' },
-                { path: 'city', select: 'cityName' },
-                { path: 'university', select: 'universityname' }
+                { path: 'campusCountry', select: 'countryName' },
+                { path: 'campusState', select: 'stateName' },
+                { path: 'campusCity', select: 'cityName' },
+                { path: 'campusUniversity', select: 'universityName' }
 
             ]
             let campus = await TableFilterQuery(Campus, { ...data, populateArr })
 
 
-            if (!branches) {
+            if (!campus) {
                 return resolve({ ...errorObj, message: "error listing", err });
             }
-            return resolve({ ...successObj, message: "campuses listed", campus });
+            return resolve({ ...successObj, message: "campuses listed", data:campus });
         });
     },
     delete: (_id) => {

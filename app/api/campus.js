@@ -24,8 +24,8 @@ export default (app, passport) => {
         })
         .put(JWT({ secret }), async (req, res) => {
             const { params: { _id }, body } = req
-            body._id = _id
-            let response = await campusCtrl.update(body)
+            body._id = _id;
+            let response = await campusCtrl.update(_id,body)
             res.json({ ...response })
         })
         .delete(JWT({ secret }), async (req, res) => {
