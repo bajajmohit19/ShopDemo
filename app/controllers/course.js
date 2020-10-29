@@ -2,7 +2,7 @@ import validator from 'email-validator'
 import jwt from 'jsonwebtoken'
 import { TableFilterQuery } from 'sz-node-utils'
 import Course from '../models/Course'
-
+import _ from 'lodash'
 import { secret, errorObj, successObj } from '../../config/settings'
 
 const courseCtrl = {
