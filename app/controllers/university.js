@@ -13,15 +13,16 @@ const exp = {
             let doc = await universityObj.save();
             return { ...successObj, message: 'University added successfully', data: doc }
         } catch (err) {
+            console.log("err is", err);
             return { err, ...errorObj, message: 'Error Saving University' }
         }
     },
     getAll: async (filters) => {
         try {
             let populateArr = [
-                { path: 'country', select: 'countryName' },
-                { path: 'state', select: 'stateName' },
-                { path: 'city', select: 'cityName' },
+                { path: 'universityCountry', select: 'countryName' },
+                { path: 'universityState', select: 'stateName' },
+                { path: 'universityCity', select: 'cityName' },
             ];
             let data = await TableFilterQuery(University, { ...filters, populateArr });
             return { ...successObj, data: data }
@@ -43,6 +44,7 @@ const exp = {
             if(!university) return { ...errorObj, message: 'University not found' }
             return { ...successObj, message: 'University updated successfully', data: university }
         } catch (err) {
+            console.error(err);
             return { ...errorObj, message: 'Error Updating University' }
         }
     },

@@ -14,6 +14,7 @@ const exp = {
             let doc = await cityObj.save();
             return { ...successObj, message: 'City added successfully', data: doc }
         } catch (err) {
+            console.error(err);
             return { err, ...errorObj, message: 'Error Saving City' }
         }
     },
@@ -43,6 +44,7 @@ const exp = {
             if(!city) return { ...errorObj, message: 'City not found' }
             return { ...successObj, message: 'City updated successfully', data: city }
         } catch (err) {
+            console.error(err);
             return { ...errorObj, message: 'Error Updating City' }
         }
     },

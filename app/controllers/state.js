@@ -45,6 +45,7 @@ const exp = {
             if(!stateObj) return { ...errorObj, message: 'State not found' }
             return { ...successObj, message: 'State updated successfully', data: stateObj }
         } catch (err) {
+            console.error(err);
             return { ...errorObj, message: 'Error Updating State' }
         }
     },
