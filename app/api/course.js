@@ -20,7 +20,7 @@ export default (app, passport) => {
         .get(JWT({ secret }), async (req, res) => {
             const { params: { _id } } = req
             let response = await CourseController.getById(_id)
-            res.json({ ...response })
+            res.json({ response })
         })
         .put(JWT({ secret }), async (req, res) => {
             const { params: { _id }, body } = req

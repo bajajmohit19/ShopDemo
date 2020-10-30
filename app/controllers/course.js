@@ -24,9 +24,10 @@ const courseCtrl = {
 
         })
     },
-    update: (_id, data) => {
+    update: (data) => {
+        console.log(data)
         return new Promise((resolve) => {
-            Course.findOne({ _id }, (err, doc) => {
+            Course.findOne({ _id: data._id }, (err, doc) => {
                 if (err) {
                     return resolve({ ...errorObj, message: 'error during updation', err })
                 }
@@ -52,25 +53,25 @@ const courseCtrl = {
             Course.findOne({ _id })
                 .populate('campusUniversity')
                 .exec((err, data) => {
-
+                    console.log(data)
                     if (!data) {
                         return resolve({ ...errorObj, message: 'Course not found', err })
                     }
-                    return resolve({ ...successObj, message: 'Course Found',data })
+                    return resolve({ ...successObj, message: 'Course Found', data })
 
                 })
         })
     },
-    all: (data) => {
+    all: (filters) => {
         return new Promise(async (resolve) => {
-            let populateArr = [{ path: 'unviversity', select: 'universityName' }]
-            let courses = await TableFilterQuery(Course, { ...data, populateArr })
+            let populateArr = [{ path: 'courseUniversity', select: 'universityName' }]
+            let data = await TableFilterQuery(Course, { ...filters, populateArr })
 
 
-            if (!courses) {
+            if (!data) {
                 return resolve({ ...errorObj, message: "error listing", err });
             }
-            return resolve({ ...successObj, message: "courses listed", courses });
+            return resolve({ ...successObj, message: "courses listed", data });
 
         });
     },
