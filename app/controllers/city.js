@@ -25,6 +25,7 @@ const exp = {
                 { path: 'state', select: 'stateName' },
             ];
             let data = await TableFilterQuery(City, { ...filters, populateArr });
+            console.log("data city is", data);
             return { ...successObj, data: data }
         } catch (err) {
             return { ...errorObj, message: 'Error getting countries' }
