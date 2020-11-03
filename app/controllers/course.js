@@ -7,6 +7,7 @@ import { secret, errorObj, successObj } from '../../config/settings'
 
 const courseCtrl = {
     add: (data) => {
+        console.log(data)
         return new Promise((resolve) => {
 
             const newCourse = new Course()
@@ -38,11 +39,13 @@ const courseCtrl = {
                     _.each(data, (val, key) => {
                         doc[key] = val
                     })
-                    doc.save((err) => {
+                    doc.save((err, data) => {
                         if (err) {
                             console.log(err)
                             return resolve({ ...errorObj, message: 'unable to update course', err })
                         }
+                        console
+                        .log(data)
                         return resolve({ ...successObj, message: 'course details updated successfully' })
                     })
                 }

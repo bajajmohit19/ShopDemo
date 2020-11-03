@@ -24,12 +24,15 @@ class CourseSchema extends Schema {
             backlogs: { type: Number, default: 0 },
             degreeType: { type: String, default: 0 }
         })
+        const Level = new Schema({
+            levelName: String,
+        })
         const course = super({
             courseUniversity: { type: Schema.Types.ObjectId, ref: 'University' },
             courseName: String,
             campusName: [{ type: Schema.Types.ObjectId, ref: 'Campus' }],
             courseDuration: String,
-            courseLevel: String,
+            courseLevel: Level,
             englishRequirments: [EnglishRequirments],
             qualification: [Qualification],
             tuitionFee: Number,
