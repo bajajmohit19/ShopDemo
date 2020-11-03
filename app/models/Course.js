@@ -27,6 +27,7 @@ class CourseSchema extends Schema {
         const course = super({
             courseUniversity: { type: Schema.Types.ObjectId, ref: 'University' },
             courseName: String,
+            campusName: [{ type: Schema.Types.ObjectId, ref: 'Campus' }],
             courseDuration: String,
             courseLevel: String,
             englishRequirments: [EnglishRequirments],

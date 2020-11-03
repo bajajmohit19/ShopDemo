@@ -58,12 +58,13 @@ const campusCtrl = {
                     if (!data) {
                         return resolve({ ...errorObj, message: 'Campus not found', err })
                     }
-                    return resolve({ ...successObj, message: 'Campus Found',data })
+                    return resolve({ ...successObj, message: 'Campus Found', data })
 
                 })
         })
     },
     all: (data) => {
+        console.log(data)
         return new Promise(async (resolve) => {
             let populateArr = [
                 { path: 'campusCountry', select: 'countryName' },
@@ -74,11 +75,11 @@ const campusCtrl = {
             ]
             let campus = await TableFilterQuery(Campus, { ...data, populateArr })
 
-
+            console.log("dataa",campus)
             if (!campus) {
                 return resolve({ ...errorObj, message: "error listing", err });
             }
-            return resolve({ ...successObj, message: "campuses listed", data:campus });
+            return resolve({ ...successObj, message: "campuses listed", data: campus });
         });
     },
     delete: (_id) => {

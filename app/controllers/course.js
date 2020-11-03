@@ -52,6 +52,7 @@ const courseCtrl = {
         return new Promise((resolve) => {
             Course.findOne({ _id })
                 .populate('campusUniversity')
+                .populate('campusName')
                 .exec((err, data) => {
                     console.log(data)
                     if (!data) {

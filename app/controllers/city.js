@@ -19,6 +19,7 @@ const exp = {
         }
     },
     getAll: async (filters) => {
+        console.log(filters)
         try {
             let populateArr = [
                 { path: 'country', select: 'countryName' },

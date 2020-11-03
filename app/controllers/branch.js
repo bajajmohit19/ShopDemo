@@ -34,6 +34,10 @@ const branchCtrl = {
         return new Promise((resolve) => {
             Branch.findOne({ _id: data._id }, (err, doc) => {
                 if (err) {
+                    if(err.code == 11000)
+                    {
+                        return resolve({...errorObj, message:`Branch with this ${getField(err)} already exists`})
+                    }
                     return resolve({ ...errorObj, message: 'error during updation', err })
                 }
                 else {
@@ -44,6 +48,7 @@ const branchCtrl = {
                         doc[key] = val
                     })
                     doc.save((err) => {
+                        console.log(err)
                         if (err) {
                             return resolve({ ...errorObj, message: 'unable to update branch', err })
                         }
