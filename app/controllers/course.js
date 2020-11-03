@@ -40,7 +40,8 @@ const courseCtrl = {
                     })
                     doc.save((err) => {
                         if (err) {
-                            return resolve({ ...errorObj, message: 'unable to update branch', err })
+                            console.log(err)
+                            return resolve({ ...errorObj, message: 'unable to update course', err })
                         }
                         return resolve({ ...successObj, message: 'course details updated successfully' })
                     })
