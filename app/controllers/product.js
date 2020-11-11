@@ -1,26 +1,27 @@
 import validator from 'email-validator'
 import jwt from 'jsonwebtoken'
 import { TableFilterQuery } from 'sz-node-utils'
-import Course from '../models/Course'
+import Product from '../models/Product'
 import _ from 'lodash'
 import { secret, errorObj, successObj } from '../../config/settings'
 
-const courseCtrl = {
+const ProductCtrl = {
     add: (data) => {
         console.log(data)
         return new Promise((resolve) => {
 
-            const newCourse = new Course()
+            const newProduct = new Product()
+            console.log("qwq",newProduct)
             _.each(data, (val, key) => {
-                newCourse[key] = val
+                newProduct[key] = val
             })
-            console.log(newCourse)
-            newCourse.save((err, doc) => {
+            console.log(newProduct)
+            newProduct.save((err, doc) => {
                 if (err) {
                     console.error(err)
-                    return resolve({ ...errorObj, message: 'Error Saving Course Details' })
+                    return resolve({ ...errorObj, message: 'Error Saving Product Details' })
                 }
-                resolve({ ...successObj, message: 'Course added successfully', data: doc })
+                resolve({ ...successObj, message: 'Product added successfully', data: doc })
             })
 
         })
@@ -28,13 +29,13 @@ const courseCtrl = {
     update: (data) => {
         console.log(data)
         return new Promise((resolve) => {
-            Course.findOne({ _id: data._id }, (err, doc) => {
+            Product.findOne({ _id: data._id }, (err, doc) => {
                 if (err) {
                     return resolve({ ...errorObj, message: 'error during updation', err })
                 }
                 else {
                     if (!doc) {
-                        return resolve({ ...errorObj, message: 'course not found' })
+                        return resolve({ ...errorObj, message: 'Product not found' })
                     }
                     _.each(data, (val, key) => {
                         doc[key] = val
@@ -42,11 +43,11 @@ const courseCtrl = {
                     doc.save((err, data) => {
                         if (err) {
                             console.log(err)
-                            return resolve({ ...errorObj, message: 'unable to update course', err })
+                            return resolve({ ...errorObj, message: 'unable to update Product', err })
                         }
                         console
-                        .log(data)
-                        return resolve({ ...successObj, message: 'course details updated successfully' })
+                            .log(data)
+                        return resolve({ ...successObj, message: 'Product details updated successfully' })
                     })
                 }
             })
@@ -54,38 +55,35 @@ const courseCtrl = {
     },
     getById: (_id) => {
         return new Promise((resolve) => {
-            Course.findOne({ _id })
-                .populate('campusUniversity')
-                .populate('campusName')
+            Product.findOne({ _id })
                 .exec((err, data) => {
                     console.log(data)
                     if (!data) {
-                        return resolve({ ...errorObj, message: 'Course not found', err })
+                        return resolve({ ...errorObj, message: 'Product not found', err })
                     }
-                    return resolve({ ...successObj, message: 'Course Found', data })
+                    return resolve({ ...successObj, message: 'Product Found', data })
 
                 })
         })
     },
     all: (filters) => {
         return new Promise(async (resolve) => {
-            let populateArr = [{ path: 'courseUniversity', select: 'universityName' }]
-            let data = await TableFilterQuery(Course, { ...filters, populateArr })
+            let data = await TableFilterQuery(Product, { ...filters })
 
 
             if (!data) {
                 return resolve({ ...errorObj, message: "error listing", err });
             }
-            return resolve({ ...successObj, message: "courses listed", data });
+            return resolve({ ...successObj, message: "Products listed", data });
 
         });
     },
     delete: (_id) => {
         return new Promise((resolve) => {
-            Course.remove({ _id })
+            Product.remove({ _id })
                 .exec((err, doc) => {
                     if (err || !doc) return resolve({ ...errorObj, err })
-                    resolve({ ...successObj, message: 'Courses deleted successfully' })
+                    resolve({ ...successObj, message: 'Products deleted successfully' })
                 })
         })
     },
@@ -94,4 +92,4 @@ const courseCtrl = {
 
 }
 
-export default courseCtrl
+export default ProductCtrl

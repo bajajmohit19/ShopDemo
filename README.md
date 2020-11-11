@@ -9,7 +9,6 @@ We will be using Passport to authenticate users locally only
 
 If you would like to download the code and try it for yourself:
 
-1. Clone the repo: `git clone https://github.com/scizers/easy-node-authentication-es6.git`
 2. Install packages: `npm install`
 3. Change out the database configuration in .env.development
 4. Launch: `npm start`

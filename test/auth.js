@@ -6,7 +6,7 @@ process.env.NODE_ENV = 'test';
 
 // const User = require('../app/controllers/user');
 const AdminUser = {
-  email: 'admin@scizers.com',
+  email: 'admin@demo.com',
   password: '12345678',
 }
 
