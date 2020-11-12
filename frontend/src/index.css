@@ -1,0 +1,67 @@
+.ant-drawer-body {
+    padding: 0px !important;
+}
+
+.ql-snow .ql-editor h5 {
+    font-size: 1.4em;
+}
+
+.ant-menu-dark {
+    background-color: #0872BC;
+}
+
+.ant-menu-dark, .ant-menu-dark {
+    background: #0872BC;
+}
+
+.ant-menu-sub {
+    background-color: #3EAEE2 !important;
+}
+
+.ant-layout-sider {
+    background: #0872BC;
+}
+
+.ant-input, .ant-input-number, .ant-select-selection--single {
+    height: 100%
+}
+
+.ant-select-selection--single .ant-select-selection__rendered, .ant-input-number-input-wrap {
+    height: 100%;
+    display: flex;
+}
+
+.ant-menu-submenu.ant-menu-submenu-vertical.ant-menu-submenu-selected {
+    background-color: #3EAEE2;
+}
+
+.ant-menu.ant-menu-dark .ant-menu-item-selected {
+    background: #C6C9D5;
+}
+
+.ant-menu-submenu-popup.ant-menu-dark .ant-menu-item-selected {
+    background-color: transparent;
+
+}
+
+.ant-form-item {
+    /* margin-bottom: 2px;    */
+}
+
+#root > div > div > section > section > main > div > div > div.antd-pro-components-page-header-wrapper-index-content > div > div > div > div > div > form > div.ant-row > div:nth-child(1) > div > div {
+    margin-bottom: 2px;
+
+}
+
+#root > div > div > section > section > main > div > div > div.antd-pro-components-page-header-wrapper-index-content > div > div > div > div > div > form > div:nth-child(1) > div.ant-col.ant-col-11.ant-col-offset-2 > div > div {
+    margin-bottom: 2px;
+}
+
+.ant-select-selection-selected-value, .ant-input-number-input {
+    align-self: center;
+}
+
+.ant-btn-primary {
+    background-color: #0872BC;
+    border-color: #0872BC;
+}
